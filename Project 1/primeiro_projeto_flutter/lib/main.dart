@@ -10,84 +10,84 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          title: Text('Tarefas'),
         ),
-        home: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.center,
+        body: ListView(
+          children: [
+            Task('Andar de bike'),
+            Task('Aprender Flutter'),
+            Task('Jogar na mega-sena'),
+            Task('Andar de bike'),
+            Task('Aprender Flutter'),
+            Task('Jogar na mega-sena'),
+            Task('Andar de bike'),
+            Task('Aprender Flutter'),
+            Task('Jogar na mega-sena'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Task extends StatelessWidget {
+  final String nome;
+  const Task(this.nome, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.blue,
+              height: 140,
+            ),
+            Container(
+              color: Colors.white,
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    color: Colors.red,
-                    width: 100,
+                    color: Colors.black26,
+                    width: 72,
                     height: 100,
                   ),
                   Container(
-                    color: Colors.blue,
-                    width: 50,
-                    height: 50,
+                    width: 200,
+                    child: Text(
+                      nome,
+                      style: TextStyle(fontSize: 24),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ],
-              ),
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Container(
-                    color: Colors.blue,
-                    width: 100,
-                    height: 100,
-                  ),
-                  Container(
-                    color: Colors.red,
-                    width: 50,
-                    height: 50,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    color: Colors.cyan,
-                    height: 50,
-                    width: 50,
-                  ),
-                  Container(
-                    color: Colors.pinkAccent,
-                    height: 50,
-                    width: 50,
-                  ),
-                  Container(
-                    color: Colors.purple,
-                    height: 50,
-                    width: 50,
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, // Cor de fundo azul
+                      foregroundColor: Colors.white, // Cor do ícone ou texto
+                      iconColor: Colors.white,
+                    ),
+                    child: Icon(Icons.arrow_drop_up),
                   )
                 ],
               ),
-              Container(
-                color: Colors.amber,
-                height: 30,
-                width: 300,
-                child: Text(
-                  'Diamante Amarelo',
-                  style: TextStyle(color: Colors.black, fontSize: 28),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Aperte o Botão!'),
-              ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
