@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
+          leading: Container(),
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
           title: Text('Tarefas'),
@@ -39,10 +40,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Task extends StatelessWidget {
+class Task extends StatefulWidget {
   final String nome;
-  const Task(this.nome, {Key? key}) : super(key: key);
+  const Task(this.nome, {super.key});
 
+  @override
+  State<Task> createState() => _TaskState();
+}
+
+class _TaskState extends State<Task> {
+  int nivel = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,37 +61,90 @@ class Task extends StatelessWidget {
               color: Colors.blue,
               height: 140,
             ),
-            Container(
-              color: Colors.white,
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    color: Colors.black26,
-                    width: 72,
-                    height: 100,
+            Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        color: Colors.black26,
+                        width: 72,
+                        height: 100,
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: Text(
+                          widget.nome,
+                          style: TextStyle(fontSize: 24),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        height: 52,
+                        width: 52,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              nivel++;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue, // Cor de fundo azul
+                            foregroundColor:
+                                Colors.white, // Cor do ícone ou texto
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  8.0), // Bordas arredondadas
+                            ),
+                            padding: EdgeInsets
+                                .zero, // Remove padding padrão para alinhar conteúdo
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment
+                                .center, // Alinha ícone e texto no centro
+                            children: [
+                              Icon(Icons.arrow_drop_up, size: 16),
+                              SizedBox(
+                                  height: 2), // Espaço entre o ícone e o texto
+                              Text(
+                                'UP',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: 200,
-                    child: Text(
-                      nome,
-                      style: TextStyle(fontSize: 24),
-                      overflow: TextOverflow.ellipsis,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: SizedBox(
+                        width: 200,
+                        child: LinearProgressIndicator(
+                          color: Colors.white,
+                          backgroundColor: Colors.grey, // Opcional
+                          value: nivel / 10,
+                        ),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Cor de fundo azul
-                      foregroundColor: Colors.white, // Cor do ícone ou texto
-                      iconColor: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        'Nível: $nivel',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ),
-                    child: Icon(Icons.arrow_drop_up),
-                  )
-                ],
-              ),
-            ),
+                  ],
+                )
+              ],
+            )
           ],
         ),
       ),
